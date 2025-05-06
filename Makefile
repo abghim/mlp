@@ -16,6 +16,7 @@ mlp: mlp.o main.o matrix.o
 
 clean:
 	rm *.o
+	rm mlp
 	echo clean done
 
 
