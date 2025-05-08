@@ -83,6 +83,45 @@ void mataddeq(matrix *to, matrix *with)
 	} return;
 }
 
+matrix *matmul(matrix *to, matrix *with)
+{
+
+	if (to->col != with->row) {
+		fprintf(stderr, "matrix: mul operation not defined");
+		return;
+	}
+
+	int n = to->col;
+
+	matrix *temp = matnew(to->row, with->col);
+	double sum;
+
+	for (int r=0; r<to->row; r++) {
+		for (int c=0; c<with->col; c++) {
+			sum = 0.0;
+			for (int k=0; k<n; k++) {
+				sum += matget(to, r, k) *  matget(with, k, c);
+			} matput(temp, r, c, sum);
+		}
+	} return temp;
+}
+
+void mataddeq(matrix *to, matrix *with)
+{
+	if (to->row != with->row || to->col != with->col) {
+		fprintf(stderr, "matrix: add operation not defined");
+		return;
+	}
+
+	matrix *temp = matnew(to->row, to->col);
+
+	for (int r=0; r<to->row; r++) {
+		for (int c=0; c<to->col; c++) {
+			matput(temp, r, c, matget(to, r, c) + matget(with, r, c));
+		}
+	} return temp;
+}
+
 void matfree()
 {
 	matrix *work;
