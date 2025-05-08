@@ -16,6 +16,8 @@ double matget(matrix *target, int row, int col);
 void matput(matrix *target, int row, int col, double val);
 void matmuleq(matrix *to, matrix *with);
 void mataddeq(matrix *to, matrix *with);
+matrix *matmul(matrix *to, matrix *with);
+matrix *matadd(matrix *to, matrix *with);
 void matfree();
 
 
