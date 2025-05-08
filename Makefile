@@ -3,7 +3,7 @@ all: mlp
 matrix.o: matrix.c matrix.h
 	clang -c matrix.c
 
-main.o: main.c matrix.h
+main.o: main.c matrix.h mlp.h
 	clang -c main.c
 
 mlp.o: mlp.c matrix.h
