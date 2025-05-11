@@ -10,6 +10,7 @@ static void matprint(matrix *m, const char *name)
             printf("%8.2f ", matget(m, r, c));
         putchar('\n');
     } putchar('\n');
+	return;
 }
 
 int main()
