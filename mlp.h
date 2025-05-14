@@ -5,10 +5,11 @@ typedef struct {
 	int nlayers;
 	int *nnodes;
 
-	double *(*activate)(int, double *);
+	matrix *(*activate)(int, matrix *);
 } nn;
 
-nn *nnalloc(int nlayers, int *nnodes, double (*activate)(int, double *));
+matrix *derv(double (*f)(matrix *), matrix *x);
+
 
 
 

@@ -4,19 +4,19 @@
 #include "matrix.h"
 #include "mlp.h"
 
-nn *nnalloc(int nlayers, int *nnodes, double (*activate)(int, double *))
+#define DELTA 0.001
+
+matrix *derv(double (*f)(matrix *), matrix *x)
 {
-	nn *temp = (nn *) malloc(sizeof(nn));
-	temp->nlayers = nlayers;
-	temp->nnodes = nnodes;
-	return temp;
+	matrix *grad = matnew(x->row, x->col);
+	for (int i=0; i<(grad->row)*(x->col); i++) {
+		double tmp = x->data[i];
+		x->data[i] = tmp+DELTA;
+		double fx1 = f(x);
+		x->data[i] = tmp-DELTA;
+		double fx2 = f(x);
+		grad->data[i] = (fx1-fx2)/(2*DELTA);
+		x->data[i] = tmp;
+	} return grad;
 }
-
-/* ----- example case ----------------------------*
- | int mlp1_nnodes[] = {4, 10, 8, 3};             |
- | nn *mlp1 = nnalloc(3, mlp1_nnodes, mlp_ReLU);  |
- * -----------------------------------------------*/
-
-
-
 
