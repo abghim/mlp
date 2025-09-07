@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 #include "matrix.h"
 
 /* matrix[row][column] */
@@ -88,7 +89,7 @@ matrix *matmul(matrix *to, matrix *with)
 
 	if (to->col != with->row) {
 		fprintf(stderr, "matrix: mul operation not defined");
-		return;
+		return NULL;
 	}
 
 	int n = to->col;
