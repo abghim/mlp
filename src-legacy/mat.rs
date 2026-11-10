@@ -1,4 +1,5 @@
 use std::panic;
+use std::fmt;
 
 #[derive(Clone)]
 pub struct Matrix {
@@ -38,6 +39,33 @@ impl Matrix {
 		}
 		self.data[r*self.c+c] = f;
 	}
+}
+
+impl fmt::Display for Matrix {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let mut rows: Vec<String> = Vec::with_capacity(self.r);
+        let mut max_width: usize = 0;
+        for r in 0..self.r {
+            let mut row = String::new();
+            for c in 0..self.c {
+                if c > 0 {
+                    row.push_str("  ");
+                }
+                row.push_str(&format!("{:>8.3}", self.get(r, c)));
+            }
+            if row.len() > max_width {
+                max_width = row.len();
+            }
+            rows.push(row);
+        }
+
+        writeln!(f)?;
+        writeln!(f, " __{}__", " ".repeat(max_width-2))?;
+        for row in rows {
+            writeln!(f, "| {} |", row)?;
+        }
+        write!(f, " ¯¯{}¯¯", " ".repeat(max_width -2))
+    }
 }
 
 impl std::ops::Add for Matrix {
